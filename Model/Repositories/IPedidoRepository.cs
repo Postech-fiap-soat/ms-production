@@ -2,7 +2,7 @@
 
 namespace Repositories;
 
-public interface IPedidoRepositorio
+public interface IPedidoRepository
 {
     public Pedido ObterPedido(int pedidoId);
 

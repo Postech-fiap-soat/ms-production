@@ -7,8 +7,8 @@ namespace Aplication;
 
 public class IncluirPedidoUserCase : IIncluirPedidoUserCase
 {
-    private readonly IPedidoRepositorio pedidoRepositorio;
-    public IncluirPedidoUserCase(IPedidoRepositorio pedidoRepositorio)
+    private readonly IPedidoRepository pedidoRepositorio;
+    public IncluirPedidoUserCase(IPedidoRepository pedidoRepositorio)
     {
         this.pedidoRepositorio = pedidoRepositorio;
     }

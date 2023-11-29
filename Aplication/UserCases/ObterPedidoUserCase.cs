@@ -6,9 +6,9 @@ namespace Aplication;
 
 public class ObterPedidoUserCase : IObterPedidoUserCase
 {
-    private readonly IPedidoRepositorio pedidoRepositorio;
+    private readonly IPedidoRepository pedidoRepositorio;
 
-    public ObterPedidoUserCase(IPedidoRepositorio pedidoRepositorio)
+    public ObterPedidoUserCase(IPedidoRepository pedidoRepositorio)
     {
         this.pedidoRepositorio = pedidoRepositorio;
     }

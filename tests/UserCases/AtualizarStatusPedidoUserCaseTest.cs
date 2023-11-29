@@ -15,7 +15,7 @@ public class AtualizarStatusPedidoUserCaseTest
         // Given
         var pedido = new Pedido(1, Model.EStatusPedido.Recebido);
 
-        var pedidoRepositorio = new Mock<IPedidoRepositorio>();
+        var pedidoRepositorio = new Mock<IPedidoRepository>();
         pedidoRepositorio.Setup(x => x.ObterPedido(It.IsAny<int>())).Returns(pedido);
         pedidoRepositorio.Setup(x => x.AtualizarPedido(It.IsAny<Pedido>())).Returns(true);
 
@@ -34,7 +34,7 @@ public class AtualizarStatusPedidoUserCaseTest
         // Given
         var pedido = new Pedido(1, Model.EStatusPedido.Recebido);
 
-        var pedidoRepositorio = new Mock<IPedidoRepositorio>();
+        var pedidoRepositorio = new Mock<IPedidoRepository>();
         pedidoRepositorio.Setup(x => x.ObterPedido(It.IsAny<int>())).Returns(pedido);
         pedidoRepositorio.Setup(x => x.AtualizarPedido(It.IsAny<Pedido>())).Returns(true);
 

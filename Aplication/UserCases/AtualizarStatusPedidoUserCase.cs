@@ -6,8 +6,8 @@ namespace Aplication;
 
 public class AtualizarStatusPedidoUserCase : IAtualizarStatusPedidoUserCase
 {
-    private readonly IPedidoRepositorio pedidoRepositorio;
-    public AtualizarStatusPedidoUserCase(IPedidoRepositorio pedidoRepositorio)
+    private readonly IPedidoRepository pedidoRepositorio;
+    public AtualizarStatusPedidoUserCase(IPedidoRepository pedidoRepositorio)
     {
         this.pedidoRepositorio = pedidoRepositorio;
     }
