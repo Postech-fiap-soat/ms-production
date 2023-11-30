@@ -33,8 +33,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Sonar Begin
+        run: dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT }}
+         /o:${{ secrets.SONAR_ORGANIZATION }} 
+         /d:sonar.token=${{ secrets.SONAR_TOKEN }} 
+         /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }}
+      - name: Build
+        run: doetnet build
+      - name: Sonar End
+        run : dotnet sonarscanner end /d:sonar.token=${{ secrets.SONAR_TOKEN }}
