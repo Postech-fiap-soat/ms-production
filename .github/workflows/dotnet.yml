@@ -35,12 +35,17 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: install dotnet-scanner
         run: dotnet tool install --global dotnet-sonarscanner
+      - name: install dotnet-coverage
+        run: dotnet tool install --global dotnet-coverage
       - name: Sonar Begin
         run: dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT }}
          /o:${{ secrets.SONAR_ORGANIZATION }} 
          /d:sonar.token=${{ secrets.SONAR_TOKEN }} 
          /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }}
+         /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
       - name: Build
         run: dotnet build
+      - name: Test Coverage
+        run: dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
       - name: Sonar End
         run : dotnet sonarscanner end /d:sonar.token=${{ secrets.SONAR_TOKEN }}
