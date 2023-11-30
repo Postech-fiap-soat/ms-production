@@ -41,6 +41,6 @@ jobs:
          /d:sonar.token=${{ secrets.SONAR_TOKEN }} 
          /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }}
       - name: Build
-        run: doetnet build
+        run: dotnet build
       - name: Sonar End
         run : dotnet sonarscanner end /d:sonar.token=${{ secrets.SONAR_TOKEN }}
