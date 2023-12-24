@@ -1,4 +1,4 @@
-﻿using model;
+﻿using Model;
 using Model.UserCases;
 using Repositories;
 

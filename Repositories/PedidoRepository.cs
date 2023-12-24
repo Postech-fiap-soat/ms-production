@@ -1,4 +1,4 @@
-﻿using model;
+﻿using Model;
 
 namespace Repositories;
 
@@ -11,11 +11,11 @@ public class PedidoRepository : IPedidoRepository
 
     public bool AtualizarPedido(Pedido pedido)
     {
-        throw new NotImplementedException();
+        return true;
     }
 
     public Pedido IncluirPedido(Pedido pedido)
     {
-        throw new NotImplementedException();
+       return pedido;
     }
 }

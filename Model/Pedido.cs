@@ -1,6 +1,4 @@
-﻿using Model;
-
-namespace model;
+﻿namespace Model;
 
 public class Pedido
 {
