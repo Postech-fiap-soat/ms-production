@@ -1,5 +1,5 @@
 ﻿using Aplication;
-using model;
+using Model;
 using Model.UserCases;
 using Moq;
 using Repositories;

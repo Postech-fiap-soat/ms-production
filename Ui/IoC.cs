@@ -11,5 +11,7 @@ public static class Ioc
         serviceCollection.AddScoped<IAtualizarStatusPedidoUserCase, AtualizarStatusPedidoUserCase>();
         serviceCollection.AddScoped<IIncluirPedidoUserCase, IncluirPedidoUserCase>();
         serviceCollection.AddScoped<IObterPedidoUserCase, ObterPedidoUserCase>();
+
+        serviceCollection.AddSingleton<MongoDbConfiguration>();
     }
 }

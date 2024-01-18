@@ -1,4 +1,4 @@
-﻿using model;
+﻿using Model;
 
 namespace Tests;
 

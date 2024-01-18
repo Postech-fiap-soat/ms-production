@@ -28,6 +28,9 @@ public class PedidoController : ControllerBase
         try
         {
             var pedido = _obterPedidoUserCase.Handle(pedidoId);
+
+            if (pedido == null) return NoContent();
+
             return Ok(JsonConvert.SerializeObject(pedido));
         }
         catch (System.Exception ex)
@@ -37,14 +40,13 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPost]
-    //TODO: NÃO ESTA RECEBENDO O PEDIDO, DEVEMOS CRIAR UM DTO, NAO SEI A CAUSA AINDA
-    public ActionResult Post([FromBody]Pedido pedido)
+    public ActionResult Post([FromBody] Pedido pedido)
     {
         try
         {
-            if(pedido == null) return NoContent();
+            if (pedido == null) return NoContent();
 
-            //pedido = _incluirPedidoUserCase.Handle(pedido.Id,(Model.EStatusPedido) pedido.Status);
+            pedido = _incluirPedidoUserCase.Handle(pedido.Id, pedido.Status);
             return Ok(JsonConvert.SerializeObject(pedido));
         }
         catch (System.Exception ex)
