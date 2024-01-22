@@ -4,6 +4,7 @@ using Repositories;
 
 namespace Ui;
 
+//NOSONAR
 public static class Ioc
 {
     public static void AddIoc(this IServiceCollection serviceCollection){
