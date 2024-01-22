@@ -4,9 +4,9 @@ using Repositories;
 
 namespace Ui;
 
-//NOSONAR
 public static class Ioc
 {
+    //NOSONAR
     public static void AddIoc(this IServiceCollection serviceCollection){
         serviceCollection.AddScoped<IPedidoRepository, PedidoRepository>();
         serviceCollection.AddScoped<IAtualizarStatusPedidoUserCase, AtualizarStatusPedidoUserCase>();
