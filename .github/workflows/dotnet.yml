@@ -38,7 +38,7 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: install dotnet-scanner
-        run: dotnet tool install --global dotnet-sonarscanner
+        run: dotnet tool install --global dotnet-sonarscanner --version 6.0.0
       - name: install dotnet-coverage
         run: dotnet tool install --global dotnet-coverage
       - name: Sonar Begin
