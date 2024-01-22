@@ -6,9 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class MongoDbConfiguration
     {
         public static IMongoDatabase DB { get; private set; }
