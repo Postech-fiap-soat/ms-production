@@ -14,10 +14,6 @@ public class Pedido
     [BsonElement("DataAlteradoStatus")]
     public DateTime DataAlteradoStatus { get; set; }
 
-    public Pedido()
-    {
-            
-    }
     public Pedido(int pedidoId, EStatusPedido status)
     {
         this.Id = pedidoId;
