@@ -1,8 +1,10 @@
-﻿using Model;
+﻿using System.Diagnostics.CodeAnalysis;
+using Model;
 using MongoDB.Driver;
 
 namespace Repositories;
 
+[ExcludeFromCodeCoverage]
 public class PedidoRepository : IPedidoRepository
 {
     public MongoDbConfiguration MongoDbConfiguration { get; }
