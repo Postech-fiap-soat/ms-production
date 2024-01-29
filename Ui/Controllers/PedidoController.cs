@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Model.UserCases;
@@ -7,6 +8,7 @@ namespace Ui.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[ExcludeFromCodeCoverage]
 public class PedidoController : ControllerBase
 {
     private readonly ILogger<PedidoController> _logger;
