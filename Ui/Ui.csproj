@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
     <ProjectReference Include="..\Aplication\Aplication.csproj" />
+    <ProjectReference Include="..\RabbitMq\RabbitMq.csproj" />
   </ItemGroup>
 
 </Project>

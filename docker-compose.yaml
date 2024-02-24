@@ -8,6 +8,18 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
+  rabbitmq:
+    image: rabbitmq:3.12.8-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    environment:
+      RABBITMQ_DEFAULT_USER: soatuser
+      RABBITMQ_DEFAULT_PASS: soatpassword
+      RABBITMQ_DEFAULT_VHOST: /
   # ms-production:
   #   build: .
   #   container_name: ms-production

@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Aplication;
+using Model;
 using Model.UserCases;
+using RabbitMq;
 using Repositories;
 
 namespace Ui;
@@ -10,6 +12,7 @@ public static class Ioc
 {
     public static void AddIoc(this IServiceCollection serviceCollection){
         serviceCollection.AddScoped<IPedidoRepository, PedidoRepository>();
+
         serviceCollection.AddScoped<IAtualizarStatusPedidoUserCase, AtualizarStatusPedidoUserCase>();
         serviceCollection.AddScoped<IIncluirPedidoUserCase, IncluirPedidoUserCase>();
         serviceCollection.AddScoped<IObterPedidoUserCase, ObterPedidoUserCase>();
