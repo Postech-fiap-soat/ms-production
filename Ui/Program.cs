@@ -17,8 +17,10 @@ namespace Ui
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddHostedService<OrderConsumer>();
             builder.Services.AddIoc();
+
+            //Add consumers/background services
+            builder.Services.AddHostedService<OrderConsumer>();
 
             var app = builder.Build();
 

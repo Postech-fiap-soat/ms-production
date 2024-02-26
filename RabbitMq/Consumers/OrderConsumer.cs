@@ -2,6 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Model;
+using Model.UserCases;
+using Newtonsoft.Json;
+using RabbitMq.Contracts;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -11,14 +14,17 @@ public class OrderConsumer : BackgroundService
 {
     private IConnection _connection;
     private IModel _channel;
+    private IIncluirPedidoUserCase _incluirPedidoUserCase;
 
-    public OrderConsumer(IConfiguration configuration)
+    public OrderConsumer(IConfiguration configuration, 
+    IIncluirPedidoUserCase incluirPedidoUserCase)
     {
+        _incluirPedidoUserCase = incluirPedidoUserCase;
         this.InitRabbit(configuration);
     }
 
     public void InitRabbit(IConfiguration configuration)
-    {
+    {   
         var host = configuration["RabbitMqConfig:Host"];
         var port = Convert.ToInt32(configuration["RabbitMqConfig:Port"]);
         var user = configuration["RabbitMqConfig:User"];
@@ -55,6 +61,11 @@ public class OrderConsumer : BackgroundService
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
+
+            var order = JsonConvert.DeserializeObject<Order>(message);
+
+            _incluirPedidoUserCase.Handle(Convert.ToInt32(order.order_id), EStatusPedido.Recebido);
+
             Console.WriteLine($" [x] Received {message}");
         };
 
