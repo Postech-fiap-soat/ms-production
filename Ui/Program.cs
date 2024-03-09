@@ -31,6 +31,12 @@ namespace Ui
                 app.UseSwaggerUI();
             }
 
+            app.Use(async (context, next) => {
+               context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+               context.Response.Headers.Add("Content-Type", "application/json");
+               await next();
+            });
+
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
