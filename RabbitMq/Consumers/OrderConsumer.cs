@@ -16,7 +16,7 @@ public class OrderConsumer : BackgroundService
     private IModel _channel;
     private IIncluirPedidoUserCase _incluirPedidoUserCase;
 
-    public OrderConsumer(IConfiguration configuration, 
+    public OrderConsumer(IConfiguration configuration,
     IIncluirPedidoUserCase incluirPedidoUserCase)
     {
         _incluirPedidoUserCase = incluirPedidoUserCase;
@@ -24,7 +24,7 @@ public class OrderConsumer : BackgroundService
     }
 
     public void InitRabbit(IConfiguration configuration)
-    {   
+    {
         var host = configuration["RabbitMqConfig:Host"];
         var port = Convert.ToInt32(configuration["RabbitMqConfig:Port"]);
         var user = configuration["RabbitMqConfig:User"];
@@ -43,7 +43,12 @@ public class OrderConsumer : BackgroundService
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
 
-        _channel.QueueDeclare(queue: "hello",
+        _channel.QueueDeclare(queue: "order-received",
+                         durable: false,
+                         exclusive: false,
+                         autoDelete: false,
+                         arguments: null);
+        _channel.QueueDeclare(queue: "order-reply",
                          durable: false,
                          exclusive: false,
                          autoDelete: false,
@@ -59,17 +64,32 @@ public class OrderConsumer : BackgroundService
         var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += (model, ea) =>
         {
-            var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
+            var basicProperties = _channel.CreateBasicProperties();
+            basicProperties.CorrelationId = Guid.NewGuid().ToString();
+            try
+            {
+                var headers = ea.BasicProperties.Headers;
 
-            var order = JsonConvert.DeserializeObject<Order>(message);
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
 
-            _incluirPedidoUserCase.Handle(Convert.ToInt32(order.order_id), EStatusPedido.Recebido);
+                Console.WriteLine($" [x] Received {message}");
 
-            Console.WriteLine($" [x] Received {message}");
+                var order = JsonConvert.DeserializeObject<Order>(message);
+
+                _incluirPedidoUserCase.Handle(Convert.ToInt32(order.order_id), EStatusPedido.Recebido);
+
+                _channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("true"));
+
+            }
+            catch (System.Exception)
+            {
+                _channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("false"));
+            }
+
         };
 
-        _channel.BasicConsume("hello", true, consumer);
+        _channel.BasicConsume("order-received", false, consumer);
 
         return Task.CompletedTask;
     }
