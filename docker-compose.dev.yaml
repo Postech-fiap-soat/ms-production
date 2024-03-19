@@ -21,7 +21,7 @@ services:
       RABBITMQ_DEFAULT_PASS: soatpassword
       RABBITMQ_DEFAULT_VHOST: /
   ms-production:
-    image: ghcr.io/postech-fiap-soat/ms-prodution:latest
+    build: .
     container_name: ms-production
     environment:
       ConnectionStrings_MongoConnection: "mongodb://root:root@localhost:27017"
@@ -34,3 +34,5 @@ services:
       - "3000:3000"
     depends_on:
       - mongodb
+      - rabbitmq
+

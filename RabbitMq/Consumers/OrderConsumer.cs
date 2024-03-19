@@ -26,10 +26,15 @@ public class OrderConsumer : BackgroundService
     public void InitRabbit(IConfiguration configuration)
     {
         var host = configuration["RabbitMqConfig:Host"];
+        Console.WriteLine(host);
         var port = Convert.ToInt32(configuration["RabbitMqConfig:Port"]);
+        Console.WriteLine(port);
         var user = configuration["RabbitMqConfig:User"];
+        Console.WriteLine(user);
         var password = configuration["RabbitMqConfig:Password"];
+        Console.WriteLine(password);
         var virtualHost = configuration["RabbitMqConfig:VirtualHost"];
+        Console.WriteLine(virtualHost);
 
         var factory = new ConnectionFactory
         {
