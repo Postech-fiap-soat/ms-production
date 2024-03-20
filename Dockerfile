@@ -4,6 +4,8 @@ WORKDIR /App
 # Copy everything
 COPY . ./
 
+
+
 RUN dotnet build
 RUN dotnet test
 

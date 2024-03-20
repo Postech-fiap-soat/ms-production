@@ -31,7 +31,7 @@ services:
       RabbitMqConfig__Password: "soatpassword"
       RabbitMqConfig__VirtualHost: /
     ports:
-      - "3000:3000"
+      - "5001:80"
     depends_on:
       - mongodb
       - rabbitmq
