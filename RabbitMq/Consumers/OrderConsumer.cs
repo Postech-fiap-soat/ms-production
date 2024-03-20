@@ -48,12 +48,17 @@ public class OrderConsumer : BackgroundService
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
 
-        _channel.QueueDeclare(queue: "order-received",
+        _channel.ExchangeDeclare("ex_producao", ExchangeType.Direct, true, false);
+
+        _channel.QueueDeclare(queue: "queue_producao",
                          durable: false,
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);
-        _channel.QueueDeclare(queue: "order-reply",
+
+        _channel.QueueBind("queue_producao", "ex_producao", "soatkey");
+
+        _channel.QueueDeclare(queue: "queue_producao-reply",
                          durable: false,
                          exclusive: false,
                          autoDelete: false,
@@ -94,7 +99,7 @@ public class OrderConsumer : BackgroundService
 
         };
 
-        _channel.BasicConsume("order-received", false, consumer);
+        _channel.BasicConsume("queue_producao", false, consumer);
 
         return Task.CompletedTask;
     }

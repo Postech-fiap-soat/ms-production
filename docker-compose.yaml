@@ -24,13 +24,14 @@ services:
     image: ghcr.io/postech-fiap-soat/ms-prodution:latest
     container_name: ms-production
     environment:
-      ConnectionStrings_MongoConnection: "mongodb://root:root@localhost:27017"
+      ConnectionStrings_MongoConnection: "mongodb://root:root@my-mongodb:27017"
       RabbitMqConfig__Host: "rabbitmq"
       RabbitMqConfig__Port: "5672"
       RabbitMqConfig__User: "soatuser"
       RabbitMqConfig__Password: "soatpassword"
       RabbitMqConfig__VirtualHost: /
     ports:
-      - "5105:5105"
+      - "5100:80"
     depends_on:
       - mongodb
+      - rabbitmq
