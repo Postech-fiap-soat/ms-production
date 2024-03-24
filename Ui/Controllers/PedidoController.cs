@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model;
 using Model.UserCases;
 using Newtonsoft.Json;
+using Ui.Dto;
 
 namespace Ui.Controllers;
 
@@ -42,13 +43,13 @@ public class PedidoController : ControllerBase
     }
 
     [HttpPut]
-    public ActionResult Put([FromQuery] int pedidoId,  [FromBody] EStatusPedido statusPedido)
+    public ActionResult Put([FromQuery] int pedidoId, [FromBody] AlterarStatusRequest alterarStatusRequest)
     {
         try
         {
             if (pedidoId <= 0) return NoContent();
 
-            _ = _atualizarStatusPedidoUserCase.Handle(pedidoId, statusPedido);
+            _ = _atualizarStatusPedidoUserCase.Handle(pedidoId, alterarStatusRequest.StatusPedido);
             var pedido = _obterPedidoUserCase.Handle(pedidoId);
 
             return Ok(JsonConvert.SerializeObject(pedido));

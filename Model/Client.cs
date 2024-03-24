@@ -1,11 +1,18 @@
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace Model;
 
 public class Client {
 
-     public required string type_identification { get; set; }
-    public required string email { get; set; }
-    public required string number_identification { get; set; }
-    public required string name { get; set; }
-    public required string surname { get; set; }
+    [BsonElement("Identificacao")]
+    public required string Identificacao { get; set; }
+    [BsonElement("Email")]
+    public required string Email { get; set; }
+    [BsonElement("NumeroIdentificacao")]
+    public required string NumeroIdentificacao { get; set; }
+    [BsonElement("Nome")]
+    public required string Nome { get; set; }
+    [BsonElement("Sobrenome")]
+    public required string Sobrenome { get; set; }
 
 }

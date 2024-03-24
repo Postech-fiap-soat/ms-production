@@ -13,7 +13,14 @@ public class ObterPedidoUserCaseTest
     public void DadoUmPedidoId_QuandoIdForDiferenteDeZero_DeveBuscarOPedido()
     {
         // Given
-        var pedido = new Pedido(1, Model.EStatusPedido.Recebido);
+          var client = new Model.Client() {
+            Identificacao = "CPF",
+            NumeroIdentificacao = "99999999999",
+            Email = "samle@sample.com",
+            Nome = "nome",
+            Sobrenome = "sample"
+        };
+        var pedido = new Pedido(1, Model.EStatusPedido.Recebido,client);
 
         var pedidoRepositorio = new Mock<IPedidoRepository>();
         pedidoRepositorio.Setup(x => x.ObterPedido(It.IsAny<int>())).Returns(pedido);

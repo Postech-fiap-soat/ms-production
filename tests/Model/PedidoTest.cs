@@ -9,7 +9,14 @@ public class PedidoTest
     public void DadoUmPedidoRecebido_QuandoAtualizarStatus_DeveTerSeuStatusAtualizadoJuntoComDataAtualizacao()
     {
         // Given
-        var pedido = new Pedido(10, Model.EStatusPedido.Recebido);
+          var client = new Model.Client() {
+            Identificacao = "CPF",
+            NumeroIdentificacao = "99999999999",
+            Email = "samle@sample.com",
+            Nome = "nome",
+            Sobrenome = "sample"
+        };
+        var pedido = new Pedido(10, Model.EStatusPedido.Recebido,client);
 
         // When
         pedido.AtualizarStatus(Model.EStatusPedido.EmPreparacao);

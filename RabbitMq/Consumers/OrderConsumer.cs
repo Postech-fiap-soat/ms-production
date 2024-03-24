@@ -88,15 +88,23 @@ public class OrderConsumer : BackgroundService
                 Console.WriteLine($" [x] Received {message}");
 
                 var order = JsonConvert.DeserializeObject<OrderDetails>(json.ToString());
+                var client = new Model.Client()
+                {
+                    Identificacao = order.client.type_identification,
+                    NumeroIdentificacao = order.client.number_identification,
+                    Email = order.client.email,
+                    Nome = order.client.name,
+                    Sobrenome = order.client.surname,
+                };
 
-                _incluirPedidoUserCase.Handle(order.order_id, EStatusPedido.Recebido);
+                _incluirPedidoUserCase.Handle(order.order_id, EStatusPedido.Recebido, client);
 
-                _channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("true"));
+                //_channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("true"));
 
             }
             catch (System.Exception ex)
             {
-                _channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("false"));
+                //_channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("false"));
             }
 
         };
