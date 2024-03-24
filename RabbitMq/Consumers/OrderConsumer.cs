@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Model;
 using Model.UserCases;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RabbitMq.Contracts;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -51,7 +52,7 @@ public class OrderConsumer : BackgroundService
         _channel.ExchangeDeclare("ex_producao", ExchangeType.Direct, true, false);
 
         _channel.QueueDeclare(queue: "queue_producao",
-                         durable: false,
+                         durable: true,
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);
@@ -59,7 +60,7 @@ public class OrderConsumer : BackgroundService
         _channel.QueueBind("queue_producao", "ex_producao", "soatkey");
 
         _channel.QueueDeclare(queue: "queue_producao-reply",
-                         durable: false,
+                         durable: true,
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);
@@ -82,17 +83,18 @@ public class OrderConsumer : BackgroundService
 
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
+                var json = JToken.Parse(message);
 
                 Console.WriteLine($" [x] Received {message}");
 
-                var order = JsonConvert.DeserializeObject<Order>(message);
+                var order = JsonConvert.DeserializeObject<OrderDetails>(json.ToString());
 
-                _incluirPedidoUserCase.Handle(Convert.ToInt32(order.order_id), EStatusPedido.Recebido);
+                _incluirPedidoUserCase.Handle(order.order_id, EStatusPedido.Recebido);
 
                 _channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("true"));
 
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 _channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("false"));
             }

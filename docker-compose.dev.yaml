@@ -20,19 +20,19 @@ services:
       RABBITMQ_DEFAULT_USER: soatuser
       RABBITMQ_DEFAULT_PASS: soatpassword
       RABBITMQ_DEFAULT_VHOST: /
-  ms-production:
-    build: .
-    container_name: ms-production
-    environment:
-      ConnectionStrings_MongoConnection: "mongodb://root:root@localhost:27017"
-      RabbitMqConfig__Host: "rabbitmq"
-      RabbitMqConfig__Port: "5672"
-      RabbitMqConfig__User: "soatuser"
-      RabbitMqConfig__Password: "soatpassword"
-      RabbitMqConfig__VirtualHost: /
-    ports:
-      - "5001:80"
-    depends_on:
-      - mongodb
-      - rabbitmq
+  # ms-production:
+  #   build: .
+  #   container_name: ms-production
+  #   environment:
+  #     ConnectionStrings_MongoConnection: "mongodb://root:root@localhost:27017"
+  #     RabbitMqConfig__Host: "rabbitmq"
+  #     RabbitMqConfig__Port: "5672"
+  #     RabbitMqConfig__User: "soatuser"
+  #     RabbitMqConfig__Password: "soatpassword"
+  #     RabbitMqConfig__VirtualHost: /
+  #   ports:
+  #     - "5001:80"
+  #   depends_on:
+  #     - mongodb
+  #     - rabbitmq
 
