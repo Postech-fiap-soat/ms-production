@@ -13,15 +13,15 @@ public class PedidoController : ControllerBase
 {
     private readonly ILogger<PedidoController> _logger;
     private readonly IObterPedidoUserCase _obterPedidoUserCase;
-    private readonly IIncluirPedidoUserCase _incluirPedidoUserCase;
+    private readonly IAtualizarStatusPedidoUserCase _atualizarStatusPedidoUserCase;
 
     public PedidoController(ILogger<PedidoController> logger,
     IObterPedidoUserCase obterPedidoUserCase,
-    IIncluirPedidoUserCase incluirPedidoUserCase)
+    IAtualizarStatusPedidoUserCase atualizarStatusPedidoUserCase)
     {
         _logger = logger;
         _obterPedidoUserCase = obterPedidoUserCase;
-        _incluirPedidoUserCase = incluirPedidoUserCase;
+        _atualizarStatusPedidoUserCase = atualizarStatusPedidoUserCase;
     }
 
     [HttpGet(Name = "?pedidoId={pedidoId}")]
@@ -41,14 +41,16 @@ public class PedidoController : ControllerBase
         }
     }
 
-    [HttpPost]
-    public ActionResult Post([FromBody] Pedido pedido)
+    [HttpPut]
+    public ActionResult Put([FromQuery] int pedidoId,  [FromBody] EStatusPedido statusPedido)
     {
         try
         {
-            if (pedido == null) return NoContent();
+            if (pedidoId <= 0) return NoContent();
 
-            pedido = _incluirPedidoUserCase.Handle(pedido.Id, pedido.Status);
+            _ = _atualizarStatusPedidoUserCase.Handle(pedidoId, statusPedido);
+            var pedido = _obterPedidoUserCase.Handle(pedidoId);
+
             return Ok(JsonConvert.SerializeObject(pedido));
         }
         catch (System.Exception ex)
