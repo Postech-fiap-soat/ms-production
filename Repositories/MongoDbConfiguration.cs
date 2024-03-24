@@ -18,6 +18,7 @@ namespace Repositories
         public MongoDbConfiguration(IConfiguration configuration)
         {
             var url = configuration.GetConnectionString("MongoConnection");
+            Console.WriteLine($" [x] MongoConnection {url}");
 
             // Configure the database settings
             if (string.IsNullOrEmpty(url))

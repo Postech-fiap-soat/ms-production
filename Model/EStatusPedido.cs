@@ -1,9 +1,11 @@
-﻿namespace Model;
+﻿using System.ComponentModel;
+
+namespace Model;
 
 public enum EStatusPedido
 {
-    Recebido,
-    EmPreparacao,
-    Pronto,
-    Finalizado
+    Recebido = 0,
+    EmPreparacao = 1,
+    Pronto = 2,
+    Finalizado = 3
 }

@@ -104,6 +104,8 @@ public class OrderConsumer : BackgroundService
             }
             catch (System.Exception ex)
             {
+                Console.WriteLine($" [x] Exception {ex.Message}");
+
                 //_channel.BasicPublish("", ea.BasicProperties.ReplyTo, basicProperties, Encoding.UTF8.GetBytes("false"));
             }
 

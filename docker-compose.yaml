@@ -24,7 +24,7 @@ services:
     image: teurybazzo/ms-prodution:latest
     container_name: ms-production
     environment:
-      ConnectionStrings_MongoConnection: "mongodb://root:root@my-mongodb:27017"
+      ConnectionStrings__MongoConnection: "mongodb://root:root@my-mongodb:27017"
       RabbitMqConfig__Host: "rabbitmq"
       RabbitMqConfig__Port: "5672"
       RabbitMqConfig__User: "soatuser"
