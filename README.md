@@ -1,5 +1,6 @@
 # ms-production
 Responsável por acompanhar pedidos na fila e atualização de status.
 
-# token sonar-cloud
-authentication-ms-production = f708f86f2aeb79463b88b0c7ef5d165611e31b7a
+# Como rodar
+
+Para rodar basta executar o docker-compose.yaml, os relatorios do owasp se encontram na pasta docs com os nomes old, new, que são antes e depois da correção das vunerabilidades
