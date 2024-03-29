@@ -14,6 +14,7 @@ public static class Ioc
         serviceCollection.AddSingleton<IPedidoRepository, PedidoRepository>();
 
         serviceCollection.AddSingleton<IAtualizarStatusPedidoUserCase, AtualizarStatusPedidoUserCase>();
+        serviceCollection.AddSingleton<IListarPedidoPorStatusUserCase, ListarPedidoPorStatusUserCase>();
         serviceCollection.AddSingleton<IIncluirPedidoUserCase, IncluirPedidoUserCase>();
         serviceCollection.AddSingleton<IObterPedidoUserCase, ObterPedidoUserCase>();
 

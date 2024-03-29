@@ -1,11 +1,17 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Model;
 
 public enum EStatusPedido
 {
-    Recebido = 0,
-    EmPreparacao = 1,
-    Pronto = 2,
-    Finalizado = 3
+    [EnumMember(Value = "Recebido")]
+    Recebido,
+    [EnumMember(Value = "EmPreparacao")]
+    EmPreparacao,
+    [EnumMember(Value = "Pronto")]
+    Pronto,
+    [EnumMember(Value = "Finalizado")]
+    Finalizado
 }

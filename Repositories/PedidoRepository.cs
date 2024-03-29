@@ -19,6 +19,12 @@ public class PedidoRepository : IPedidoRepository
         return MongoDbConfiguration.DB.GetCollection<Pedido>("Pedido").Find(p => p.Id == pedidoId).FirstOrDefault();
     }
 
+    public IEnumerable<Pedido> ObterPedidos(EStatusPedido statusPedido)
+    {
+        return MongoDbConfiguration.DB.GetCollection<Pedido>("Pedido").Find(p => p.Status == statusPedido).ToEnumerable();
+    }
+
+
     public bool AtualizarPedido(Pedido pedido)
     {
         return MongoDbConfiguration.DB.GetCollection<Pedido>("Pedido").ReplaceOne(p => p.Id == pedido.Id, pedido).IsAcknowledged;

@@ -9,4 +9,6 @@ public interface IPedidoRepository
     public bool AtualizarPedido(Pedido pedido);
 
     public Pedido IncluirPedido(Pedido pedido);
+
+    public IEnumerable<Pedido> ObterPedidos(EStatusPedido statusPedido);
 }
